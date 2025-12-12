@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ReviewDent AI – Dentist Review Reply</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f4f7fb; margin: 0; padding: 0; }
+    .container { display: flex; flex-direction: column; align-items: center; padding: 40px 0; }
+    .card { background: white; padding: 24px; border-radius: 12px; max-width: 700px; width: 90%; box-shadow: 0 8px 24px rgba(0,0,0,0.08); margin-bottom: 20px; }
+    h1 { margin-top: 0; color: #12355b; font-size: 22px; text-align: center; }
+    label { display: block; margin-top: 12px; font-size: 14px; color: #12355b; }
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 6px;
+      border: 1px solid #ccd6e3;
+      font-size: 14px;
+    }
+    textarea { min-height: 100px; resize: vertical; }
+    button.primary {
+      background: #1f6feb;
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 18px;
+    }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    .output-box {
+      margin-top: 18px;
+      padding: 12px;
+      border-radius: 8px;
+      background: #f0f4ff;
+      border: 1px solid #ccd6e3;
+      white-space: pre-wrap;
+      font-size: 14px;
+      color: #12355b;
+    }
+    .small { font-size: 12px; color: #667; margin-top: 4px; text-align:center; }
+
+    /* Pricing Section */
+    .pricing-box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      width: 90%;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+      text-align: center;
+      margin-bottom: 18px;
+    }
+    .pricing-title { font-size: 20px; color: #12355b; margin-bottom: 10px; }
+    .price { font-size: 28px; color: #1f6feb; margin: 10px 0; font-weight: bold; }
+    .pricing-desc { font-size: 14px; color: #444; margin-bottom: 12px; }
+
+    /* Payment section */
+    .payments { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; align-items: flex-start; margin-top: 12px; }
+    .pay-card { background: #fff; border: 1px solid #e6ecf5; padding: 12px; border-radius: 8px; width: 220px; text-align: center; }
+    .pay-card img { max-width: 160px; height: auto; display:block; margin: 8px auto; }
+    .pay-button { background:#0a6f3a; color:white; padding:8px 12px; border-radius:6px; text-decoration:none; display:inline-block; margin-top:8px; }
+    footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="card">
+    <h1>ReviewDent AI – Dentist Review Reply</h1>
+
+    <label>Clinic Name</label>
+    <input id="clinicName" placeholder="e.g. BrightSmile Dental Clinic" />
+
+    <label>Rating (1–5 stars)</label>
+    <select id="rating">
+      <option value="5">5 – Excellent</option>
+      <option value="4">4 – Good</option>
+      <option value="3">3 – Okay</option>
+      <option value="2">2 – Poor</option>
+      <option value="1">1 – Very bad</option>
+    </select>
+
+    <label>Patient Review Text</label>
+    <textarea id="reviewText" placeholder="Paste the patient's review here..."></textarea>
+
+    <button id="generateBtn" class="primary">Generate Reply</button>
+    <p class="small">Click the button to instantly get a professional reply.</p>
+
+    <div id="output" class="output-box" style="display:none;"></div>
+  </div>
+
+  <!-- Pricing Box -->
+  <div class="pricing-box">
+    <div class="pricing-title">Monthly Subscription</div>
+    <div class="price">₹499 / month</div>
+    <div class="pricing-desc">
+      • Unlimited reply templates<br>
+      • Formal & professional tone<br>
+      • Works for any clinic<br>
+      • Simple UPI / PayPal payment
+    </div>
+
+    <div class="payments">
+      <!-- UPI pay card (replace upi-qr.jpeg with your QR image file in public/) -->
+      <div class="pay-card">
+        <strong>Pay with UPI</strong>
+        <img src="upi-qr.jpeg" alt="UPI QR (replace with your QR)" onerror="this.style.display='none'"/>
+        <div style="font-size:13px; color:#333; margin-top:6px;">UPI ID:</div>
+        <div style="font-weight:bold; color:#12355b;">9538148745@ybl</div>
+        <div style="margin-top:8px;"><a class="pay-button" href="#" onclick="alert('Scan QR or use UPI ID to pay ₹499')">I paid (Notify)</a></div>
+      </div>
+
+      <!-- PayPal pay card (replace link with your PayPal.me or invoice URL) -->
+      <div class="pay-card">
+        <strong>Pay with PayPal</strong>
+        <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" />
+        <div style="font-size:13px; color:#333; margin-top:6px;">PayPal</div>
+        <div style="font-weight:bold; color:#12355b;">$6.00 USD</div>
+        <div style="margin-top:8px;"><a class="pay-button" href="https://www.paypal.me/AymanShariff" target="_blank">Pay via PayPal</a>
+</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Made for clinics • ReviewDent AI • Auto-reply system
+</footer>
+
+<script>
+  const btn = document.getElementById("generateBtn");
+  const output = document.getElementById("output");
+
+  btn.addEventListener("click", async () => {
+    const clinicName = document.getElementById("clinicName").value.trim();
+    const rating = document.getElementById("rating").value;
+    const reviewText = document.getElementById("reviewText").value.trim();
+
+    if (!clinicName || !reviewText) {
+      alert("Please enter clinic name and review text.");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Generating...";
+    output.style.display = "none";
+    output.textContent = "";
+
+    try {
+      const res = await fetch("/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ clinicName, rating, reviewText })
+      });
+
+      const data = await res.json();
+
+      if (data.reply) {
+        output.style.display = "block";
+        output.textContent = data.reply;
+      } else {
+        output.style.display = "block";
+        output.textContent = "Error: " + (data.error || "Unknown error");
+      }
+    } catch (err) {
+      output.style.display = "block";
+      output.textContent = "Network error. Is the server running?";
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Generate Reply";
+    }
+  });
+</script>
+
+</body>
+</html>
